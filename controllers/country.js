@@ -1,54 +1,55 @@
 'use scrict'
-var Auto = require('../models/auto')
+var Country = require('../models/country')
 var mongoose = require('mongoose')
 //Definimos el método a ser consumido
 //desde el archivo de rutas
 
-
-function saveAuto(req, res) {
+function saveCountry(req, res) {
     //Definimos el objeto que se guardará como documento
-    var auto = new Auto(req.body);
+    var country = new Country(req.body);
 
-    auto.save(function (err, autoSaved) {
+    country.save(function (err, countrySaved) {
         if (err) {
             console.log(err)
-            res.status(500).send({ message: 'Error al guardar el Auto.', error: err });
+            res.status(500).send({ message: 'Error al guardar el Country. ', error: err });
         } else {
-            res.status(200).send({ saved: autoSaved })
+            res.status(200).send({ saved: countrySaved })
         }
     });
 };
 
-function getAutos(req, res) {
+function getCountries(req, res) {
     //Auto.find{}, function(arr,autos){
     //Para ordenar de manera descendente agregar -anio
-    Auto.find({}).sort('anio').exec(function (err, autos) {
+    Country.find({}).exec(function (err, paises) {
         if (err) {
             console.log(err)
             res.status(500).send({ message: 'Error al obtener los autos', error: err });
         } else {
-            res.status(200).send({ autos })
+            res.status(200).send({ data:paises })
+            //res.status(200).send({ message: 'Pude leer los autos'})
+
         }
     });
 }
 
-function getAuto(req, res) {
+function getCountry(req, res) {
     //Obtenemos el id que llega como parámetro
-    var autoId = req.params.id;
+    var countryId = req.params.id;
     //Verificasmo si el parámetro enviado es un ObjectId
-    var idValido = mongoose.Types.ObjectId.isValid(autoId);
+    var idValido = mongoose.Types.ObjectId.isValid(countryId);
     if (!idValido) {
         //Si no es valido mostramos un mensaje de Id inválido
         res.status(409).send({ message: 'Id Inválido.' });
     } else {
         //Buscaremos un documento por el Id Proporcionado
-        Auto.findById(autoId, function (err, auto) {
+        Country.findById(countryId, function (err, auto) {
             if (err) {
                 console.log(err)
-                res.status(500).send({ message: 'Error al obtener el auto', error: err });
+                res.status(500).send({ message: 'Error al obtener el country', error: err });
             } else {
                 if (!auto) {
-                    res.status(404).send({ message: 'No existe el auto con el id proporcionado.' });
+                    res.status(404).send({ message: 'No existe el country con el id proporcionado.' });
                 } else {
                     res.status(200).send({ auto })
                 }
@@ -58,11 +59,11 @@ function getAuto(req, res) {
     }
 }
 
-function updateAuto(req, res) {
+function updateCountry(req, res) {
     //Obtenemos el id que llega como parámetro
-    var autoId = req.params.id;
+    var countryId = req.params.id;
     //Verificamos si el parámetro enviado es un ObjectId
-    var idValido = mongoose.Types.ObjectId.isValid(autoId);
+    var idValido = mongoose.Types.ObjectId.isValid(countryId);
     if (!idValido) {
         //Si no es válido mostrarnos un mensaje de Id inválido
         res.status(409).send({ message: 'Id Inválido.' });
@@ -86,7 +87,7 @@ function updateAuto(req, res) {
                 }
             }
         });*/
-        Auto.findByIdAndUpdate(autoId, req.body, { new: true }, function (err, autoUpdate) {
+        Country.findByIdAndUpdate(countryId, req.body, { new: true }, function (err, autoUpdate) {
             if (err) {
                 console.log(err)
                 res.status(500).send({ message: 'Error al actualizar el Auto.', error: err });
@@ -103,26 +104,26 @@ function updateAuto(req, res) {
 
 
 
-function deleteAuto(req, res) {
+function deleteCountry(req, res) {
     //  Obtenemos el id que llega como parámetro
-    var autoId = req.params.id;
+    var countryId = req.params.id;
     //  Verificamos si el parámetro enviado es un ObjectId
-    var idValido = mongoose.Types.ObjectId.isValid(autoId);
+    var idValido = mongoose.Types.ObjectId.isValid(countryId);
 
     if (!idValido) {
         //Si noes válido mostramos un mensaje de Id Inválido
         res.status(409).send({ message: 'Id Inválido' });
     }
     else {
-        Auto.findByIdAndRemove(autoId, function (err, auto) {
+        Country.findByIdAndRemove(countryId, function (err, auto) {
             if (err) {
                 return res.status(500).send(err);
             } else {
                 if (!auto) {
-                    res.status(404).send({ message: 'No existe el auto con el id proporcionado.' });
+                    res.status(404).send({ message: 'No existe el country con el id proporcionado.' });
                 } else {
                     //res.status(200).send({data:autoUpdate})
-                    res.status(200).send({ message: 'El auto se ha borrado exitosamente' })
+                    res.status(200).send({ message: 'El country se ha borrado exitosamente' })
                 }
             }
         });
@@ -164,10 +165,9 @@ function deleteAuto(req, res) {
 
 //Definimos los métodos que pueden ser alcanzables
 module.exports = {
-    getAuto,
-    getAutos,
-    saveAuto,
-    updateAuto,
-    deleteAuto
+    getCountry,
+    getCountries,
+    saveCountry,
+    updateCountry,
+    deleteCountry
 }
-

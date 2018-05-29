@@ -4,7 +4,7 @@
 var express = require('express')
 
 //Importamos el controlador
-var autoController = require('../controllers/auto')
+var autoController = require('../controllers/country')
 
 //Instanciamos un objeto Router
 var api = express.Router();
@@ -13,11 +13,11 @@ var api = express.Router();
 //un parámtero y se procesa en el método prueba del cntrolador
 //autoController
 //api.get('/auto/:id?',autoController.prueba)
-api.get('/auto/:id?', autoController.getAuto);
-api.get('/autos/', autoController.getAutos);
-api.post('/auto', autoController.saveAuto);
-api.put('/auto/:id?', autoController.updateAuto);
-api.delete('/auto/:id?', autoController.deleteAuto);
+api.get('/country/:id?', autoController.getCountry);
+api.get('/countries/', autoController.getCountries);
+api.post('/country', autoController.saveCountry);
+api.put('/country/:id?', autoController.updateCountry);
+api.delete('/country/:id?', autoController.deleteCountry);
 
 //Para utilizarlo en otros ficheros a importar
 module.exports = api;

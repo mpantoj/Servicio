@@ -2,62 +2,45 @@
 //Importamos la conexión  a nuestra base de datos mongoose
 //y declaramos una instancia de tipo mongoose.Schema.
 
-
 var mongoose = require('mongoose'),
 Schema = mongoose.Schema;
 
-var AutoSchema = new Schema(
+var CountrySchema = new Schema(
     {
-        marca:{
+        country:{
             type: String,
             trim: true,
             default: '',
-            required: 'Inserta una marca por favor',
+            required: 'Inserta un país por favor',
             index:{
                 unique: false,
             }
         },
-        modelo:{
+        continente:{
             type: String,
-            required: 'Inserta un modelo por favor',
+            required: 'Inserta un continente por favor',
             default: '',
             index:{
                 unique: false
             }
         },
-        anio:{
+        habitantes:{
             type: Number,
-            require: 'Iserta un año por favor',
+            require: 'Iserta un numero de habitantes por favor',
             default: '',
             index: {
                 unique: false,
              }
         },
-        version: {
+        capital: {
             type: String,
             trim: true,
             default: '',
-            required: 'Inserta una version por favor',
+            required: 'Inserta una capital por favor',
             index: {
                 unique: false,
             }
-        },
-        colores:[String],
-         motorInfo: {
-            transmision:{
-                type: String,
-                required: 'Inserta una transmision por favor',
-                default: '',
-                index: {
-                    unique: false,
-                    dropDups: true
-                },
-            enum: [
-                'manual',
-                'automatico'
-            ]
         }
-      }
     },
     {
         timestamps: true
@@ -66,6 +49,6 @@ var AutoSchema = new Schema(
 
 //Definiremos que nuestro esquema se podrá llamar Auto
 // en ls operaciones de nuestro controlador
-var Auto = mongoose.model('Auto', AutoSchema);
+var Country = mongoose.model('Country', CountrySchema);
 //podrá ser accedido desde cualquier parte si se importa
-module.exports = Auto;
+module.exports =Country;
