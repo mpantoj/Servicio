@@ -10,6 +10,8 @@ var auto = require('./routes/auto')
 var country = require('./routes/country')
 var marca = require('./routes/marca')
 var modelo = require('./routes/modelo')
+var anio = require('./routes/anio')
+var version = require('./routes/version')
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
@@ -29,7 +31,9 @@ app.use(function(req,res,next){
 app.use('/api',auto),
 app.use('/api',country),
 app.use('/api',marca),
-app.use('/api',modelo)
+app.use('/api',modelo),
+app.use('/api',anio),
+app.use('/api',version)
 
 //Para utilizarlo en otros ficheros, lo estmos exportando
 module.exports = app;
